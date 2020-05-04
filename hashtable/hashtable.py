@@ -16,6 +16,13 @@ class HashTable:
 
     Implement this.
     """
+    def __init__(self, size):
+        self.capacity = size # How many slots the hash table has
+        # SIZE because of "ht = HashTable(0x10000)" from test file
+        # self.capacity because hash_i) already set this value
+
+        self.hash_table = [None] * self.capacity # Space to hold values
+
 
     def fnv1(self, key):
         """
@@ -41,7 +48,7 @@ class HashTable:
         between within the storage capacity of the hash table.
         """
         #return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.djb2(key) % self.capacity # because I filled in djb2()
 
     def put(self, key, value):
         """
@@ -51,6 +58,9 @@ class HashTable:
 
         Implement this.
         """
+        #index = hash_index(key)
+        #hash_table[index] = value
+        self.hash_table[self.hash_index(key)] = value
 
 
     def delete(self, key):
@@ -61,6 +71,9 @@ class HashTable:
 
         Implement this.
         """
+        #index = hash_index(key)
+        #hash_table[index] = None
+        self.hash_table[self.hash_index(key)] = None
 
     def get(self, key):
         """
@@ -70,6 +83,9 @@ class HashTable:
 
         Implement this.
         """
+        #index = hash_index(key)
+        #return hash_table[index]
+        return self.hash_table[self.hash_index(key)]
 
     def resize(self):
         """
