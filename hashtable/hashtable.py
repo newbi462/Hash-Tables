@@ -30,6 +30,10 @@ class HashTable:
 
         Implement this, and/or FNV-1.
         """
+        hash = 5381 # Why 5381? Because it’s prime, and it works pretty well
+        for x in key:
+            hash = (( hash << 5) + hash) + ord(x)
+        return hash & 0xFFFFFFFF # because 32 bit
 
     def hash_index(self, key):
         """
