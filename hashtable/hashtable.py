@@ -52,6 +52,7 @@ class HashTable:
         Implement this.
         """
 
+
     def delete(self, key):
         """
         Remove the value stored with the given key.
