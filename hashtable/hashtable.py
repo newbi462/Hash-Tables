@@ -110,7 +110,14 @@ class HashTable:
         """
         #index = hash_index(key)
         #return hash_table[index]
-        return self.hash_table[self.hash_index(key)]
+        ###return self.hash_table[self.hash_index(key)]
+        #Find the hash index
+        if self.hash_table[self.hash_index(key)] is None:
+            return None
+        else: #Search the list for the key
+            return self.hash_table[self.hash_index(key)].find_for_get(key)
+        #If found, return the value
+        #Else return None
 
     def resize(self):
         """

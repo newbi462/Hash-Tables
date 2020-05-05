@@ -144,7 +144,7 @@ class DoublyLinkedList:
         #cur = head
 
         while current is not None:
-            if if current.value[0] == key_passed:
+            if current.value[0] == key_passed:
                 current.value[1] = value_passed
                 return None
             current = current.next
@@ -156,8 +156,22 @@ class DoublyLinkedList:
         current = self.head
 
         while current is not None:
-            if if current.value[0] == key_passed:
+            if current.value[0] == key_passed:
                 return current
+            current = current.next
+
+        return None
+
+    def find_for_get(self, key_passed):
+        try:
+            node_values = self.head.value
+            current = self.head
+        except AttributeError:
+            return None
+
+        while current is not None:
+            if current.value[0] == key_passed:
+                return current.value[1]
             current = current.next
 
         return None
