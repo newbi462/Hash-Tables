@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class HashTableEntry:
     """
     Hash Table entry, as a linked list node.
@@ -39,8 +41,8 @@ class HashTable:
         """
         hash = 5381 # Why 5381? Because it’s prime, and it works pretty well
         for x in key:
-            hash = (( hash << 5) + hash) + ord(x)
-        return hash & 0xFFFFFFFF # because 32 bit
+            hash = (( hash << 5) + hash) + ord(x) # << 5, like 33 is optmsation for older CPUs
+        return hash & 0xffffffff # because 32 bit
 
     def hash_index(self, key):
         """
@@ -60,8 +62,18 @@ class HashTable:
         """
         #index = hash_index(key)
         #hash_table[index] = value
-        self.hash_table[self.hash_index(key)] = value
-
+        #### self.hash_table[self.hash_index(key)] = value
+        #Find the hash index
+        if self.hash_table[self.hash_index(key)] is None:
+            self.hash_table[self.hash_index(key)] = DoublyLinkedList()
+            self.hash_table[self.hash_index(key)].add_to_head( [key, value] )
+        else: #Search the list for the key
+            if self.hash_table[self.hash_index(key)].find_and_replace(key, value) is None:
+                #If it's there, replace the value
+                pass
+            else:
+                #If it's not, append a new record to the list
+                self.hash_table[self.hash_index(key)].add_to_tail( [key, value] )
 
     def delete(self, key):
         """
@@ -94,6 +106,7 @@ class HashTable:
 
         Implement this.
         """
+
 
 if __name__ == "__main__":
     ht = HashTable(2)
