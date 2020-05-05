@@ -150,3 +150,14 @@ class DoublyLinkedList:
             current = current.next
 
         return "no match"
+
+    def find_for_del(self, key_passed):
+        node_values = self.head.value
+        current = self.head
+
+        while current is not None:
+            if if current.value[0] == key_passed:
+                return current
+            current = current.next
+
+        return None

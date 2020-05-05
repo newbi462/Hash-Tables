@@ -85,7 +85,20 @@ class HashTable:
         """
         #index = hash_index(key)
         #hash_table[index] = None
-        self.hash_table[self.hash_index(key)] = None
+        ###self.hash_table[self.hash_index(key)] = None
+        #Find the hash index
+        if self.hash_table[self.hash_index(key)] is None:
+            return None
+        else: #Search the list for the key
+            if self.hash_table[self.hash_index(key)].find_for_del(key) is None:
+                return None
+            else:
+                node_to_del = self.hash_table[self.hash_index(key)].find_for_del(key)
+                self.hash_table[self.hash_index(key)].delete(node_to_del)
+
+
+        #If found, delete the node from the list, (return the node or value?)
+        #Else return None
 
     def get(self, key):
         """
