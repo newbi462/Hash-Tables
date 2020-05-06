@@ -25,6 +25,8 @@ class HashTable:
 
         self.hash_table = [None] * self.capacity # Space to hold values
 
+        self.count = 0
+
 
     def fnv1(self, key):
         """
@@ -67,6 +69,7 @@ class HashTable:
         if self.hash_table[self.hash_index(key)] is None:
             self.hash_table[self.hash_index(key)] = DoublyLinkedList()
             self.hash_table[self.hash_index(key)].add_to_head( [key, value] )
+            self.count += 1
         else: #Search the list for the key
             if self.hash_table[self.hash_index(key)].find_and_replace(key, value) is None:
                 #If it's there, replace the value
@@ -74,6 +77,7 @@ class HashTable:
             else:
                 #If it's not, append a new record to the list
                 self.hash_table[self.hash_index(key)].add_to_tail( [key, value] )
+                self.count += 1
 
     def delete(self, key):
         """
@@ -95,6 +99,7 @@ class HashTable:
             else:
                 node_to_del = self.hash_table[self.hash_index(key)].find_for_del(key)
                 self.hash_table[self.hash_index(key)].delete(node_to_del)
+                self.count -= 1
 
 
         #If found, delete the node from the list, (return the node or value?)
