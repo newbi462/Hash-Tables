@@ -67,7 +67,7 @@ class HashTable:
         #### self.hash_table[self.hash_index(key)] = value
         if self.count/len(self.hash_table) > 0.7:
             #print("over 0.7")
-            #print(f"{self.count}")
+            #print(f" load: {self.count}")
             #print(f"{len(self.hash_table)}")
             #Get old key values
             hold = []
@@ -78,10 +78,36 @@ class HashTable:
                     hold = x.clone_key_value(hold)
                     #print(hold)
             #table to double its previous size
+            self.capacity *= 2
+            self.hash_table = [None] * self.capacity
             #rehash the table
-
-
+            for old in hold:
+                if self.hash_table[self.hash_index(old[0])] is None:
+                    self.hash_table[self.hash_index(old[0])] = DoublyLinkedList()
+                    self.hash_table[self.hash_index(old[0])].add_to_head( old )
+                else: #Search the list for the key
+                    if self.hash_table[self.hash_index(old[0])].find_and_replace( old ) is None:
+                        #If it's there, replace the value
+                        pass
+                    else:
+                        #If it's not, append a new record to the list
+                        self.hash_table[self.hash_index(old[0])].add_to_tail( old )
+            #add new value to new table
+            #Find the hash index
+            if self.hash_table[self.hash_index(key)] is None:
+                self.hash_table[self.hash_index(key)] = DoublyLinkedList()
+                self.hash_table[self.hash_index(key)].add_to_head( [key, value] )
+                self.count += 1
+            else: #Search the list for the key
+                if self.hash_table[self.hash_index(key)].find_and_replace(key, value) is None:
+                    #If it's there, replace the value
+                    pass
+                else:
+                    #If it's not, append a new record to the list
+                    self.hash_table[self.hash_index(key)].add_to_tail( [key, value] )
+                    self.count += 1
         else:
+            #print(f" load: {self.count}")
             #Find the hash index
             if self.hash_table[self.hash_index(key)] is None:
                 self.hash_table[self.hash_index(key)] = DoublyLinkedList()
