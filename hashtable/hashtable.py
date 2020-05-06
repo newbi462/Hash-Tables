@@ -65,19 +65,36 @@ class HashTable:
         #index = hash_index(key)
         #hash_table[index] = value
         #### self.hash_table[self.hash_index(key)] = value
-        #Find the hash index
-        if self.hash_table[self.hash_index(key)] is None:
-            self.hash_table[self.hash_index(key)] = DoublyLinkedList()
-            self.hash_table[self.hash_index(key)].add_to_head( [key, value] )
-            self.count += 1
-        else: #Search the list for the key
-            if self.hash_table[self.hash_index(key)].find_and_replace(key, value) is None:
-                #If it's there, replace the value
-                pass
-            else:
-                #If it's not, append a new record to the list
-                self.hash_table[self.hash_index(key)].add_to_tail( [key, value] )
+        if self.count/len(self.hash_table) > 0.7:
+            #print("over 0.7")
+            #print(f"{self.count}")
+            #print(f"{len(self.hash_table)}")
+            #Get old key values
+            hold = []
+            for x in self.hash_table:
+                if x is None:
+                    pass
+                else:
+                    hold = x.clone_key_value(hold)
+                    #print(hold)
+            #table to double its previous size
+            #rehash the table
+
+
+        else:
+            #Find the hash index
+            if self.hash_table[self.hash_index(key)] is None:
+                self.hash_table[self.hash_index(key)] = DoublyLinkedList()
+                self.hash_table[self.hash_index(key)].add_to_head( [key, value] )
                 self.count += 1
+            else: #Search the list for the key
+                if self.hash_table[self.hash_index(key)].find_and_replace(key, value) is None:
+                    #If it's there, replace the value
+                    pass
+                else:
+                    #If it's not, append a new record to the list
+                    self.hash_table[self.hash_index(key)].add_to_tail( [key, value] )
+                    self.count += 1
 
     def delete(self, key):
         """

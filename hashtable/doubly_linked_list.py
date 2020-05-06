@@ -175,3 +175,17 @@ class DoublyLinkedList:
             current = current.next
 
         return None
+
+    def clone_key_value(self, hold): #pass in [] of values colected as you pass over table
+        #hold = []
+        try:
+            node_values = self.head.value
+            current = self.head
+        except AttributeError:
+            return None
+
+        while current is not None:
+            hold.append([*current.value])
+            current = current.next
+
+        return hold
