@@ -1,14 +1,27 @@
 import math
 import random
 
+speed = {}
 def slowfun(x, y):
     # TODO: Modify to produce the same results, but much faster
-    v = math.pow(x, y)
-    v = math.factorial(v)
-    v //= (x + y)
-    v %= 982451653
+    #speed = {}
+    key = str(x) + str(y)
+    #print(key)
+    #print(speed)
+    try:
+        cashed_v = speed[key]
+        #print(speed)
+        return cashed_v
+    except KeyError:
+        #print("no match")
 
-    return v
+        v = math.pow(x, y)
+        v = math.factorial(v)
+        v //= (x + y)
+        v %= 982451653
+
+        speed[key] = v
+        return v
 
 
 # Do not modify below this line!
